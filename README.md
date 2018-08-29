@@ -6,7 +6,7 @@
 **Email me your idea for 5 points**
 
 ## Submission
-`commit` and `push` your code, input files, documentation, and any other required files to the remote GitHub repository **before** the deadline.
+`commit` and `push` your code, input files, documentation, and any other required files to the `master` branch on the remote GitHub repository **before** the deadline.
 
 ## Clone
 `clone` this repo to dsunix or your local machine using the link provided on the GitHub repo page.
@@ -26,7 +26,7 @@ You get to create your own final project! You may choose something that you are 
 - [ ] Recursion
 - [ ] Stack/Queue
 
-The proper and fulfilling implementation of each of six items above will be worth 5 points each.
+The proper and fulfilling implementation of each of six items above will be worth 5 points each.  Do not list more than six topics that you wish to be graded on.
 
 ### Documentation
 This documentation should be in a separate file in either plaintext `.txt` or markdown `.md` that describes your program, how to use it, and any included input files that are supplied and required.
