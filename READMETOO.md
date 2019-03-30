@@ -25,4 +25,4 @@ Numbered list
 2. test
 3. test
 
-[Link][http://test.com]
+[Link](http://test.com)
