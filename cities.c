@@ -33,7 +33,6 @@ int main(int argc, char *argv[]) {
     city *list = NULL;
     list = makeListFromFile(ifp, list); //master city list
     city *userList = NULL; //custom user list
-        
     
     int quickUse = 0;
     
@@ -72,7 +71,6 @@ int main(int argc, char *argv[]) {
             printf("\n>>> Distance between %s and %s: %.2lf miles\n\n", cityA->data->name, cityB->data->name, distance);
             
         }
-        
     }
     
     int mainMenuChoice = 0;
@@ -299,7 +297,6 @@ int main(int argc, char *argv[]) {
             int numForCityB = 0;
             city *A = NULL;
             city *B = NULL;
-
 
             printf("%s", "\nEnter number for city A: ");
             fgets(tmp, 10, stdin);
