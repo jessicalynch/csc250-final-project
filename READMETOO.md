@@ -1,4 +1,4 @@
-# Cities.c
+# cities.c
 
 **CSC-250 Final Project for Jessica Lynch**
 
@@ -30,7 +30,7 @@ In addition to the main `cities.c` file, the following `.c` files must be includ
 ```
 gcc cities.c cities_ListFuncs.c cities_PrintFuncs.c cities_MenuFuncs.c
 ```
-**Note:** `-lm` must also be added when compiling on dsunix server.
+***Note:*** *`-lm` must also be added when compiling on dsunix server.*
 
 ## How to Use
 The program must always be passed a data set of city information **(File I/O)** with the following command:
@@ -198,6 +198,40 @@ Would you like to remove it? (y/n): y
 (-) Paris, France has been removed from your itinerary
 ```
 
+The function that builds the initial master linked list from the provided data set makes use of the `insertFront()` function.
+
+The function that creates the custom user linked list makes use of the `insertTail()` function.
+
+```c
+//adds node to front of linked list
+city *insertFront(city *head, city *new) {
+    new->next = head;
+    return new;
+}
+
+//adds node to end of linked list
+city *insertTail(city *head, city *new) {
+    
+    city *tmp = NULL;
+    tmp = head;
+    
+    if (head == NULL) { //if list is empty
+        head = new;
+    } else if (head != NULL && head->next == NULL) { //if list contains one node
+        head->next = new;
+    } else { //if list contains more than one node
+        while (tmp->next != NULL) {
+            tmp = tmp->next;
+        }
+        tmp->next = new;
+    }
+    return head;
+   
+}
+```
+
+
+
 When you stop entry by typing a `0`, your list is displayed with a menu of options:
 
 ```
@@ -347,7 +381,6 @@ void selSortAirQuality_BestToWorst(city *list) {
 ```
 
 
-
 ```
 
  Itinerary Options
@@ -366,7 +399,7 @@ void selSortAirQuality_BestToWorst(city *list) {
 
 What would you like to do?
 ```
-
+### Modifying linked list
 Selecting `option 8 or 9` will allow you to **add** or **delete** nodes from your **linked list**.
 
 When you **add** a node via `option 8`, the program will only show cities that are not already in your linked list *(all cities in the master data set that are not already in your custom linked list*).
@@ -385,10 +418,11 @@ If you **delete** *all* nodes from your list via `option 9` or delete your entir
 Returning to main menu...
 ```
 
-Selecting `option 10` will output a `.txt` file to your disk. The program makes use of `time()` to create a unique filename and outputs data **(File I/O)** with the following function:
+Selecting `option 10` will output a `.txt` file to your disk. The program makes use of `time()` to create a unique filename and outputs data **(File I/O)** with the following functions:
 
 ```c
 void printItineraryToFile(city *C, FILE *ofp);
+void printCityStatsToFile(city *C, FILE *ofp);
 ```
 The data printed by the function includes:
 

@@ -1,3 +1,7 @@
+// cities.c
+// created by Jessica Lynch (@jessiicalynch)
+// for Spring 2019 CSC-250
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,11 +12,7 @@
 #include "cities_ListFuncs.h"
 #include "cities_PrintFuncs.h"
 
-
-
-
 int main(int argc, char *argv[]) {
-
 
     if (argc < 2 || argc > 4) { //print error if two filenames are not provided
         printf("%s", "Syntax error: <exec> <filename.txt> [city_name] [city_name]\n");
@@ -78,10 +78,12 @@ int main(int argc, char *argv[]) {
     int mainMenuChoice = 0;
     
     if (quickUse) {
+        //QUICK USE MODE
         //don't show menu if extra command line args provided
-        mainMenuChoice = MAIN_MENU_LENGTH;
+        mainMenuChoice = MAIN_MENU_LENGTH; //last menu option is "quit"
     } else {
-        //standard mode: no cities provided as command line arguments
+        //STANDARD MODE
+        //no cities provided as command line arguments
         //show  menu to user and get their choice
         mainMenuChoice = getMainMenuChoice();
     }
@@ -248,10 +250,11 @@ int main(int argc, char *argv[]) {
                                 //open file for writing
                                 timeStamp = (int)time(NULL);
                                 snprintf(outputFilename, sizeof(outputFilename), "Itinerary_%d.txt", timeStamp);
-                                ofp = fopen(outputFilename, "w");
+                                ofp = fopen(outputFilename, "a");
 
                                 if (ofp != NULL) {
                                     printItineraryToFile(userList, ofp);
+                                    printCityStatsToFile(userList, ofp);
                                     fclose(ofp);
                                     printf("\n>>> SUCCESS: %s written to disk.\n\n", outputFilename);
 

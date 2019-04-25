@@ -1,8 +1,6 @@
 #ifndef CITIES_LISTFUNCS_H
 #define CITIES_LISTFUNCS_H
 
-
-
 city *makeCity(char *name, double lat, double lon, char *country, unsigned long pop, int air);
 city_stats *makeCityStats(char *name, double lat, double lon, char *country, unsigned long pop);
 city *makeCityNode(city_stats *stats);

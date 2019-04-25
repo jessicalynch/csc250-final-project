@@ -3,7 +3,6 @@
 
 #define MAX_NAME_LENGTH 100
 
-
 typedef struct city_stats_struct {
     
     char *name; //city name

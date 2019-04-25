@@ -47,30 +47,29 @@ city *insertFront(city *head, city *new) {
     return new;
 }
 
-//adds node to front of linked list
+//adds node to end of linked list
 city *insertTail(city *head, city *new) {
     
     city *tmp = NULL;
     tmp = head;
     
-    if (head == NULL) {
+    if (head == NULL) { //if list is empty
         head = new;
-    } else if (head != NULL && head->next == NULL) {
+    } else if (head != NULL && head->next == NULL) { //if list contains one node
         head->next = new;
-    } else {
+    } else { //if list contains more than one node
         while (tmp->next != NULL) {
             tmp = tmp->next;
         }
         tmp->next = new;
-        
     }
     return head;
    
 }
 
-
-city *makeListFromFile(FILE *ifp, city *list) { //build a linked list with data from file
-    
+//creates a linked list from the input file
+//provided via command line argument
+city *makeListFromFile(FILE *ifp, city *list) {
     
     int numCities = 0;
     fscanf(ifp, "%d", &numCities);
@@ -119,9 +118,9 @@ city *makeListFromFile(FILE *ifp, city *list) { //build a linked list with data 
         //fscanf(ifp, "%c", buf); //read newline char
         
        	city_stats *tmp_stats = NULL;
-		tmp_stats = makeCityStats(tmpNamePtr, tmpLat, tmpLon, tmpCountryPtr, tmpPop, tmpAir);
+        tmp_stats = makeCityStats(tmpNamePtr, tmpLat, tmpLon, tmpCountryPtr, tmpPop, tmpAir);
         
-		city *tmp = NULL;
+        city *tmp = NULL;
         tmp = makeCityNode(tmp_stats);
 
         list = insertFront(list, tmp);
@@ -130,33 +129,31 @@ city *makeListFromFile(FILE *ifp, city *list) { //build a linked list with data 
     return list;
 }
 
-
-
 //returns city node from name
 city *getCityByName(city *list, char *name) {
     city *tmp = NULL;
     tmp = list;
-   
-	int i = 0;
-	
-	//convert input node's city name to lowercase for comparison
-	int nameLen = strlen(name);
-	char inputName[nameLen+1];
-	strcpy(inputName, name);
-	for (i = 0; i < nameLen; ++i) {
-		inputName[i] = tolower(inputName[i]);
-	}
+
+    int i = 0;
+
+    //convert input node's city name to lowercase for comparison
+    int nameLen = strlen(name);
+    char inputName[nameLen+1];
+    strcpy(inputName, name);
+    for (i = 0; i < nameLen; ++i) {
+        inputName[i] = tolower(inputName[i]);
+    }
 
     while (tmp != NULL) {
-		
-		//convert tmp node's city name to lowercase for comparison
-		int tmpLen = strlen(tmp->data->name);
-		char tmpName[tmpLen+1];
-		strcpy(tmpName, tmp->data->name);
-		for (i = 0; i < tmpLen; ++i) {
-			tmpName[i] = tolower(tmpName[i]);
-		}
 
+        //convert tmp node's city name to lowercase for comparison
+        int tmpLen = strlen(tmp->data->name);
+        char tmpName[tmpLen+1];
+        strcpy(tmpName, tmp->data->name);
+        for (i = 0; i < tmpLen; ++i) {
+            tmpName[i] = tolower(tmpName[i]);
+        }
+        
         if (strcmp(tmpName, inputName) == 0){
             break;
         }
@@ -179,10 +176,11 @@ city *getCityByNum(city *list, int num) {
         tmp = tmp->next;
         count++;
     }
-    
     return tmp;
 }
 
+//calculates distance between nodes
+//using lat and long coordinates
 double calcDistance(city *A, city *B) {
     
     const double pi = acos(-1);
@@ -209,7 +207,9 @@ double calcDistance(city *A, city *B) {
     return distance;
 }
 
-
+//sorts list by popupulation value
+//second argument determines if the sort
+//is in ascending or descending order
 void sortListByPopulation(city *list, int ascOrDesc) {
     
     city *i, *j;
@@ -221,26 +221,29 @@ void sortListByPopulation(city *list, int ascOrDesc) {
             
             if (ascOrDesc > 0) { //sort highest to lowest
                 
-				if ( i->data->pop < j->data->pop ) {
+                if ( i->data->pop < j->data->pop ) {
                     tmp_data = i->data;
                     i->data = j->data;
                     j->data = tmp_data;    
                 }
-  
-   			} else { //sort lowest to highest
                 
-				if ( i->data->pop > j->data->pop ) {
+            } else { //sort lowest to highest
+                
+                if ( i->data->pop > j->data->pop ) {
                     tmp_data = i->data;
                     i->data = j->data;
-                    j->data = tmp_data;         
+                    j->data = tmp_data;
                 }
+                
             }
            
         }
     }
 }
 
-
+//sorts lists alphabetically
+//second argument determines if the sort
+//is A to Z or Z to A
 void sortListByName(city *list, int ascOrDesc) {
     
     city *i, *j;
@@ -264,21 +267,16 @@ void sortListByName(city *list, int ascOrDesc) {
                     tmp_data = i->data;
                     i->data = j->data;
                     j->data = tmp_data;
-                    
                 }
-		    }
-       
-	   }
+                
+            }
+        
+        }
     }
 }
 
-
-
-
-
-
-
-
+//sorts list by air quality
+//with bubble sort method
 void sortListByAirQuality(city *list, int ascOrDesc) {
     
     city *i, *j;
@@ -304,48 +302,51 @@ void sortListByAirQuality(city *list, int ascOrDesc) {
                     j->data = tmp_data;
                     
                 }
-		    }
-       
-	   }
+            }
+            
+        }
     }
 }
 
 
-
+//finds the minimum air pollution value
 city *findBestAirCity(city *head) {
 
-	city *i;
-	city *minNode = head;
-	int minAirVal = minNode->data->air;
+    city *i;
+    city *minNode = head;
+    int minAirVal = minNode->data->air;
 
-	for (i = head; i != NULL; i = i->next) {
-		if (i->data->air < minAirVal) {
-			minAirVal = i->data->air;
-			minNode = i;
-		}
-	}
+    for (i = head; i != NULL; i = i->next) {
+        if (i->data->air < minAirVal) {
+            minAirVal = i->data->air;
+            minNode = i;
+        }
+    }
 
-	return minNode;
+    return minNode;
 }
 
-
+//finds the maximum air pollution value
 city *findWorstAirCity(city *head) {
 
-	city *i;
-	city *maxNode = head;
-	int maxAirVal = maxNode->data->air;
+    city *i;
+    city *maxNode = head;
+    int maxAirVal = maxNode->data->air;
 
-	for (i = head; i != NULL; i = i->next) {
-		if (i->data->air > maxAirVal) {
-			maxAirVal = i->data->air;
-			maxNode = i;
-		}
+    for (i = head; i != NULL; i = i->next) {
+        if (i->data->air > maxAirVal) {
+            maxAirVal = i->data->air;
+            maxNode = i;
+        }
 
-	}
+    }
 
 	return maxNode;
 }
 
+//sorts list by air quality
+//from best to worst (lowest to highest value)
+//with selection sort method
 void selSortAirQuality_BestToWorst(city *list) {
 	city *min_node = NULL;
 	city *temp = NULL;
@@ -360,26 +361,28 @@ void selSortAirQuality_BestToWorst(city *list) {
 		min_node->data = stats_temp;
 
 	}
-
-
 }
+
+//sorts list by air quality
+//from worst to best (highest to lowest value)
+//with selection sort method
 void selSortAirQuality_WorstToBest(city *list) {
-	city *max_node = NULL;
-	city *temp = NULL;
-	city_stats *stats_temp = NULL;
+    city *max_node = NULL;
+    city *temp = NULL;
+    city_stats *stats_temp = NULL;
 
-	for (temp = list; temp != NULL; temp = temp->next) {
+    for (temp = list; temp != NULL; temp = temp->next) {
 
-		max_node = findWorstAirCity(temp);
+        max_node = findWorstAirCity(temp);
 
-		stats_temp = temp->data;
-		temp->data = max_node->data;
-		max_node->data = stats_temp;
-
-	}
+        stats_temp = temp->data;
+        temp->data = max_node->data;
+        max_node->data = stats_temp;
+        
+    }
 }
 
-
+//returns length of linked list
 int getListLength(city *list){
     
     int count = 0;
@@ -394,26 +397,23 @@ int getListLength(city *list){
     return count;
 }
 
-
+//returns true if provided node is found in list
+//or false if node is not found
 int inList(city *list, char *name) {
     
     city *tmp = list;
     int found = 0;
     
     while (tmp != NULL) {
-        
         if (strcmp(tmp->data->name, name) == 0) {
             found = 1;
         }
-        
         tmp = tmp->next;
     }
-    
     return found;
-    
 }
 
-
+//deletes node from list
 city *deleteCityNode(city *list, char *name) {
     
     city *tmp = list;
@@ -422,10 +422,12 @@ city *deleteCityNode(city *list, char *name) {
     if (tmp != NULL) {
         
         if ( strcmp(tmp->data->name, name) == 0) {
+            //if node to delete is head of list
             list = tmp->next;
             free(tmp);
             tmp = NULL;
         } else {
+            //if node to delete is not head
             while (tmp->next != NULL) {
                 if ( strcmp(tmp->next->data->name, name) == 0) {
                     buf = tmp->next->next;
@@ -434,22 +436,17 @@ city *deleteCityNode(city *list, char *name) {
                     tmp->next = buf;
                     break;
                 }
-                
                 tmp = tmp->next;
             }
-            
         }
-        
-        
     }
-    
     return list;
 }
 
 
-
+//creates a linked list
+//via user input
 city *makeUserCityList(city *list) {
-
     
     printf("\nWhich cities would you like to visit?\n");
     
@@ -503,7 +500,6 @@ city *makeUserCityList(city *list) {
                 } else {
                     printf("%s", "\n");
                 }
-                
             }
             
         } else if (userCity == -99999) { //number was not received
@@ -511,11 +507,9 @@ city *makeUserCityList(city *list) {
             userCity = 1;
         }
         
-        
     }
     
     printf("%s", "\n"); //print new line after user stops input
-    
     
     return wishlist;
     

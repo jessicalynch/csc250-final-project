@@ -4,9 +4,11 @@
 #include "cities_ListFuncs.h"
 #include "cities_MenuFuncs.h"
 
+//menu functions show a list of options
+//and return the user's choice
+//constants stored in corresponding header file
 
-//* Main Menu
-
+//main menu
 int getMainMenuChoice() {
     
     int userChoice = 0; //initilaize userChoice to 0
@@ -14,10 +16,8 @@ int getMainMenuChoice() {
     int validChoice = 0; //initialize validation variable
     
     //print a menu of choices for user
-    
     printf("%s", "\nMain Menu\n");
     printf("%s", "************************\n");
-    
     printf("%s", "1. View all cities\n");
     printf("%s", "2. Make/edit an itinerary\n");
     printf("%s", "3. Calculate distance between two cities\n");
@@ -38,9 +38,7 @@ int getMainMenuChoice() {
     return userChoice;
 }
 
-
-//* Itinerary Menu
-
+//itinerary menu
 int getItinMenuChoice() {
     
     int userChoice = 0; //initilaize userChoice to 0
@@ -48,7 +46,6 @@ int getItinMenuChoice() {
     int validChoice = 0; //initialize validation variable
     
     //print a menu of choices for user
-    
     printf("%s", " Itinerary Options\n");
     printf("%s", "*************************\n");
     printf("%s", "1. Return to main menu \n");
