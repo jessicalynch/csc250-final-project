@@ -272,7 +272,7 @@ What would you like to do?
 
 Selecting `options 2 thru 8` will **sort** the list accordingly and print the updated list. 
 
-I have implemented a **bubble sort**, as well as a **selection sort**:
+The program uses a **bubble sort**, as well as a **selection sort**:
 
 ### Bubble Sort
 ```c
@@ -364,7 +364,6 @@ void selSortAirQuality_BestToWorst(city *list) {
 ```
 **Sample output:**
 ```
-
                 City Name | Air Pollution
      --------------------------------------------
   1.               Dallas | 8
@@ -382,7 +381,6 @@ void selSortAirQuality_BestToWorst(city *list) {
 
 
 ```
-
  Itinerary Options
 *************************
 1. Return to main menu
@@ -410,14 +408,14 @@ If you've added all cities in the master list and select `option 8`, you will re
 >>> Sorry, there are no more cities to add.
 ```
 
-If you **delete** *all* nodes from your list via `option 9` or delete your entire list with `option 11`, the program will return you to the main menu:
+If you **delete** *all* nodes from your list via `option 9`, or delete your entire list with `option 11`, the program will return you to the main menu:
 
 ```
 >>> Your itinerary is empty.
 
 Returning to main menu...
 ```
-
+### File Output
 Selecting `option 10` will output a `.txt` file to your disk. The program makes use of `time()` to create a unique filename and outputs data **(File I/O)** with the following functions:
 
 ```c
@@ -426,11 +424,10 @@ void printCityStatsToFile(city *C, FILE *ofp);
 ```
 The data printed by the function includes:
 
-* Your current linked list
-* Stats on all cities in your list
+1. Your current linked list
+2. Stats on all cities in your list
 
-Example output file:
-
+**Example output file:**
 ```
 -------------------------------------------------
 Your Itinerary
@@ -486,11 +483,9 @@ Population data comes from [an article on worldatlas.com](https://www.worldatlas
 Population numberes include surrounding metropolitan area.
 
 ### Air quality data
-The air quality number represents the average annual PM2.5 particles (concentration of fine particle matter less than 2.5 microns in diameter).
+The air quality number represents the **average annual PM<sub>2.5</sub> particles** *(concentration of fine particle matter less than 2.5 microns in diameter)*.
 
-Most of the the air pollution data comes from [a database](https://www.who.int/airpollution/data/aap_air_quality_database_2018_v14.xlsx?ua=1) downloaded from [the World Health Organization's website](https://www.who.int/airpollution/data/cities/en/).
-
-However, there was not PM2.5 data for all 100 most populated cities, so the set was supplemented with data from [Plume Labs](https://air.plumelabs.com/).
+Most of the the air pollution data comes from [a database](https://www.who.int/airpollution/data/aap_air_quality_database_2018_v14.xlsx?ua=1) downloaded from [the World Health Organization's website](https://www.who.int/airpollution/data/cities/en/). However, there was not PM<sub>2.5</sub> data for all 100 most populated cities, so the set was supplemented with data from [Plume Labs](https://air.plumelabs.com/).
 
 
 
