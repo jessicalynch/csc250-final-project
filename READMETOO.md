@@ -30,6 +30,7 @@ In addition to the main `cities.c` file, the following `.c` files must be includ
 ```
 gcc cities.c cities_ListFuncs.c cities_PrintFuncs.c cities_MenuFuncs.c
 ```
+**Note:** `-lm` must also be added when compiling on dsunix server.
 
 ## How to Use
 The program must always be passed a data set of city information **(File I/O)** with the following command:

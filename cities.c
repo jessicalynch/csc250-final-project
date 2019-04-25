@@ -74,36 +74,30 @@ int main(int argc, char *argv[]) {
         }
         
     }
-
-	
     
-
+    //standard mode: no cities provided as command line arguments
+    
     int mainMenuChoice = 0;
     
     if (quickUse) { //don't show menu if extra command line args provided
         mainMenuChoice = MAIN_MENU_LENGTH;
     } else { //show  menu to user and get their choice
         mainMenuChoice = getMainMenuChoice();
-
     }
 	
-	
 	while (mainMenuChoice != MAIN_MENU_LENGTH) { //continue if their choice is not to quit
-		switch (mainMenuChoice){
-			case 1:
-				sortListByName(list, 1);
-				printCityList(list);
-				break;
-			case 2:
-               
-			   //make or edit itinerary
-
+        switch (mainMenuChoice){
+            case 1: //display list of cities
+                sortListByName(list, 1);
+                printCityList(list);
+                break;
+            case 2: //make or edit itinerary
                 if (userList == NULL) {
                     sortListByName(list, 1);
                     printCityList_3col(list);
                     userList = makeUserCityList(list);
                 }
-                
+
                 if (userList != NULL) {
 
                     printItinerary(userList);
@@ -111,53 +105,53 @@ int main(int argc, char *argv[]) {
                     //initialize itinerary variables
 
                     int itinLength = 0;
-					itinLength = getListLength(userList);
-                    
-					FILE *ofp = NULL;
-                    
+                    itinLength = getListLength(userList);
+
+                    FILE *ofp = NULL;
+
                     char outputFilename[100];
                     int timeStamp = 0;
-					
-					city *unusedCities = NULL;
-					int unusedCitiesLength = 0;
-               		city *temp = NULL;
-               		city *temp2 = NULL;
-					int cityToAdd = 0;
-				
-					int cityToDelete = -1;
-                    char tmpStrCityToAdd[10]; //temp array to store city node to add 
-                    
+
+                    city *unusedCities = NULL;
+                    int unusedCitiesLength = 0;
+                    city *temp = NULL;
+                    city *temp2 = NULL;
+                    int cityToAdd = 0;
+
+                    int cityToDelete = -1;
+                    char tmpStrCityToAdd[10]; //temp array to store city node to add
+
                     int itinChoice = getItinMenuChoice(); //show  menu to user and get their choice
                     int returnToMain = 0;
                     
                     while (itinChoice != 1){ //continue if their choice is not to quit
                         switch (itinChoice){
                             case 1:
-								//return to main menu
+                                //return to main menu
                                 exit(0);
                             case 2:
-								//display alphabetically: A to Z
+                                //display alphabetically: A to Z
                                 sortListByName(userList, 1);
                                 printCityList(userList);
                                 printf("%s", "\n");
                                 break;
                             case 3:
-								//display alphabetically: Z to A
+                                //display alphabetically: Z to A
                                 sortListByName(userList, -1);
                                 printCityList(userList);
                                 printf("%s", "\n");
                                 break;
                             case 4:
-								//display by population: high to low
-								itinLength = getListLength(userList);
+                                //display by population: high to low
+                                itinLength = getListLength(userList);
                                 sortListByPopulation(userList, 1);
-								printListByPopulation(userList, itinLength);
+                                printListByPopulation(userList, itinLength);
                                 break;
                             case 5:
                                 //display by population: low to high
-								itinLength = getListLength(userList);
+                                itinLength = getListLength(userList);
                                 sortListByPopulation(userList, -1);
-								printListByPopulation(userList, itinLength);
+                                printListByPopulation(userList, itinLength);
                                 break;
 							case 6:
 								//display by air quality: low to high (best to worst)
@@ -226,7 +220,6 @@ int main(int argc, char *argv[]) {
 									printf("Enter a number from 1 to %d: ", itinLength);
 									fgets(tmpToDelStr, 10, stdin);
 									sscanf(tmpToDelStr, "%d", &cityToDelete);
-							//		printf("cityToDelete is %d", cityToDelete);
 								}
 
 								
