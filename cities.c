@@ -125,7 +125,6 @@ int main(int argc, char *argv[]) {
 					int cityToAdd = 0;
 				
 					int cityToDelete = -1;
-                    char tmp[10]; //temp array to store city node to delete
                     char tmpStrCityToAdd[10]; //temp array to store city node to add 
                     
                     int itinChoice = getItinMenuChoice(); //show  menu to user and get their choice
@@ -220,7 +219,9 @@ int main(int argc, char *argv[]) {
                                 printItinerary(userList);
 								itinLength = getListLength(userList);
 
-                                printf("%s", "Which city would you like to delete?\n");
+                    			char tmp[10]; //temp array to store city node to delete
+                                
+								printf("%s", "Which city would you like to delete?\n");
 								while (cityToDelete < 1 || cityToDelete > itinLength) {
 									printf("Enter a number from 1 to %d: ", itinLength);
 									fgets(tmp, 10, stdin);
