@@ -14,9 +14,9 @@
 int main(int argc, char *argv[]) {
 
 
-	if (argc < 2 || argc > 4) { //print error if two filenames are not provided
+    if (argc < 2 || argc > 4) { //print error if two filenames are not provided
         printf("%s", "Syntax error: <exec> <filename.txt> [city_name] [city_name]\n");
-		exit(1);
+        exit(1);
     }
     
     FILE *ifp = NULL;
