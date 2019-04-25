@@ -219,18 +219,24 @@ int main(int argc, char *argv[]) {
                                 printItinerary(userList);
 								itinLength = getListLength(userList);
 
-                    			char tmp[10]; //temp array to store city node to delete
+                    			char tmpToDelStr[10]; //temp array to store city node to delete
                                 
 								printf("%s", "Which city would you like to delete?\n");
 								while (cityToDelete < 1 || cityToDelete > itinLength) {
 									printf("Enter a number from 1 to %d: ", itinLength);
-									fgets(tmp, 10, stdin);
-									sscanf(tmp, "%d", &cityToDelete);
+									fgets(tmpToDelStr, 10, stdin);
+									sscanf(tmpToDelStr, "%d", &cityToDelete);
+							//		printf("cityToDelete is %d", cityToDelete);
 								}
+
+								
                                 city *tmpDel = NULL;
                                 tmpDel = getCityByNum(userList, cityToDelete);
-                                userList = deleteCityNode(userList, tmpDel->data->name);
+                             
+							 	printf("tmpDel is %s\n", tmpDel->data->name);
+
                                 printf("\n(-) %s, %s has been removed from your itinerary.\n\n", tmpDel->data->name, tmpDel->data->country);
+							 	userList = deleteCityNode(userList, tmpDel->data->name);
                                 tmpDel = NULL;
                                 itinLength = getListLength(userList); //updte itinerary length
                                 if (itinLength < 1) {
@@ -241,7 +247,6 @@ int main(int argc, char *argv[]) {
                                 } else {
                                     printItinerary(userList);
                                 }
-
 								cityToDelete = 0;
                                 break;
 							
