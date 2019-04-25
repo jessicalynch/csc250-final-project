@@ -490,4 +490,4 @@ Most of the the air pollution data comes from [a database](https://www.who.int/a
 
 
 ---
-*All code written by @jessiicalynch for Spring 2019 CSC-250 Final*
+<sub>*All code written by @jessiicalynch for Spring 2019 CSC-250 Final*</sub>
