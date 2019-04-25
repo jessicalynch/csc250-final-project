@@ -87,11 +87,13 @@ int main(int argc, char *argv[]) {
 	
 	while (mainMenuChoice != MAIN_MENU_LENGTH) { //continue if their choice is not to quit
         switch (mainMenuChoice){
-            case 1: //display list of cities
+            case 1:
+                //display list of cities
                 sortListByName(list, 1);
                 printCityList(list);
                 break;
-            case 2: //make or edit itinerary
+            case 2:
+                //make or edit itinerary
                 if (userList == NULL) {
                     sortListByName(list, 1);
                     printCityList_3col(list);
@@ -178,7 +180,7 @@ int main(int argc, char *argv[]) {
                                 }
                                 unusedCitiesLength = getListLength(unusedCities);
                                 
-                                if (unusedCitiesLength != 0) {
+                                if (unusedCitiesLength != 0) { //if cities exist in master list that are not already in user list
                                     sortListByName(unusedCities, 1);
 									printCityList(unusedCities);
                                     printf("%s", "\nWhich city would you like to add?\n");
@@ -198,77 +200,74 @@ int main(int argc, char *argv[]) {
                                     tmpAdd = NULL;
                                     cityToAdd = 0;
                                     
-                                } else {
-                                    //if all cities have been added
+                                } else { //if all cities in master list have been added
                                     printf("\n>>> ERROR: There are no more cities to add.\n\n");
                                 }
                                 
                                 unusedCities = NULL;
                                 break;
-                                
-							case 9:
+                            
+                            case 9:
                                 //delete city from itin
                                 printItinerary(userList);
                                 itinLength = getListLength(userList);
-                                
-								printf("%s", "Which city would you like to delete?\n");
-								while (cityToDelete < 1 || cityToDelete > itinLength) {
-									printf("Enter a number from 1 to %d: ", itinLength);
-									fgets(tmpToDelStr, 10, stdin);
-									sscanf(tmpToDelStr, "%d", &cityToDelete);
-								}
 
-								
+                                printf("%s", "Which city would you like to delete?\n");
+                                while (cityToDelete < 1 || cityToDelete > itinLength) {
+                                    printf("Enter a number from 1 to %d: ", itinLength);
+                                    fgets(tmpToDelStr, 10, stdin);
+                                    sscanf(tmpToDelStr, "%d", &cityToDelete);
+                                }
+
+
                                 city *tmpDel = NULL;
                                 tmpDel = getCityByNum(userList, cityToDelete);
-                             
-							 	printf("tmpDel is %s\n", tmpDel->data->name);
+
+                                printf("tmpDel is %s\n", tmpDel->data->name);
 
                                 printf("\n(-) %s, %s has been removed from your itinerary.\n\n", tmpDel->data->name, tmpDel->data->country);
-							 	userList = deleteCityNode(userList, tmpDel->data->name);
+                                userList = deleteCityNode(userList, tmpDel->data->name);
                                 tmpDel = NULL;
                                 itinLength = getListLength(userList); //updte itinerary length
+                                
                                 if (itinLength < 1) {
                                     printf("%s", ">>> Your itinerary is empty.\n\nReturning to main menu...\n");
                                     returnToMain = 1;
-                                        
-                                           
                                 } else {
                                     printItinerary(userList);
                                 }
-								cityToDelete = 0;
+                                cityToDelete = 0;
                                 break;
-							
                             case 10:
                                 //open file for writing
                                 timeStamp = (int)time(NULL);
                                 snprintf(outputFilename, sizeof(outputFilename), "Itinerary_%d.txt", timeStamp);
                                 ofp = fopen(outputFilename, "w");
-                                
+
                                 if (ofp != NULL) {
-                                   	printItineraryToFile(userList, ofp); 
+                                    printItineraryToFile(userList, ofp);
                                     fclose(ofp);
-									printf("\n>>> SUCCESS: %s written to disk.\n\n", outputFilename);
+                                    printf("\n>>> SUCCESS: %s written to disk.\n\n", outputFilename);
 
                                 } else {
                                     printf("%s", ">>> ERROR: Could not write file to disk.");
                                 }
-                               
                                 break;
-                            case 11: 
+                            
+                            case 11:
                                 printf("%s", ">>> Your itinerary is empty.\n\nReturning to main menu...\n");
                                 returnToMain = 1;
-								//delete entire itinerary
-								city *tmpList = userList;
-								city *tmpNode = NULL;
+                                //delete entire itinerary
+                                city *tmpList = userList;
+                                city *tmpNode = NULL;
 
-								while (tmpList != NULL) {
-									tmpNode = tmpList;
-									tmpList = tmpList->next;
-									free(tmpNode);
-								}
-								userList = NULL;
-                              	break;
+                                while (tmpList != NULL) {
+                                    tmpNode = tmpList;
+                                    tmpList = tmpList->next;
+                                    free(tmpNode);
+                                }
+                                userList = NULL;
+                                break;
 
                         } //end itinerary choices switch
                         if (returnToMain == 1) {
@@ -276,54 +275,47 @@ int main(int argc, char *argv[]) {
                         } else {
                             itinChoice = getItinMenuChoice(); //show menu after their task is complete
                         }
-                        
+
                     } //end while for itinerary menu
-                    
-                } /*else {
-                    printf("\n%s\n", ">>> Your itinerary is empty.\n");
-                }*/
-				break;
-			
-            case 3:
-                //calculate distance between cities
-                sortListByName(list, 1);
-                printCityList(list);
-                
-                char tmp[10]; //temp array to store city number
-                int numForCityA = 0;
-                int numForCityB = 0;
-                city *A = NULL;
-                city *B = NULL;
 
-                
-                printf("%s", "\nEnter number for city A: ");
-                fgets(tmp, 10, stdin);
-                sscanf(tmp, "%d", &numForCityA);
-                
-                printf("%s", "Enter number for city B: ");
-                fgets(tmp, 10, stdin);
-                sscanf(tmp, "%d", &numForCityB);
-                
-                A = getCityByNum(list, numForCityA);
-                B = getCityByNum(list, numForCityB);
-                
-                double dist = calcDistance(A, B);
-                printf("\n>>> Distance between %s and %s: %.2lf miles\n", A->data->name, B->data->name, dist);
+                }
                 break;
+            
+            case 3:
+            //calculate distance between cities
+            sortListByName(list, 1);
+            printCityList(list);
 
-		}
-		mainMenuChoice = getMainMenuChoice(); //show menu after their task is complete
-	}
+            char tmp[10]; //temp array to store city number
+            int numForCityA = 0;
+            int numForCityB = 0;
+            city *A = NULL;
+            city *B = NULL;
 
+
+            printf("%s", "\nEnter number for city A: ");
+            fgets(tmp, 10, stdin);
+            sscanf(tmp, "%d", &numForCityA);
+
+            printf("%s", "Enter number for city B: ");
+            fgets(tmp, 10, stdin);
+            sscanf(tmp, "%d", &numForCityB);
+
+            A = getCityByNum(list, numForCityA);
+            B = getCityByNum(list, numForCityB);
+
+            double dist = calcDistance(A, B);
+            printf("\n>>> Distance between %s and %s: %.2lf miles\n", A->data->name, B->data->name, dist);
+            break;
+
+        } //end main menu switch
+        mainMenuChoice = getMainMenuChoice(); //show menu after their task is complete
+    } //end main menu while
 
 	printf("%s", "Exiting program...\n");
-
-
-
-	
-	
-	return 0;
-
+    
+    return 0;
+    
 }
 
 
