@@ -75,13 +75,14 @@ int main(int argc, char *argv[]) {
         
     }
     
-    //standard mode: no cities provided as command line arguments
-    
     int mainMenuChoice = 0;
     
-    if (quickUse) { //don't show menu if extra command line args provided
+    if (quickUse) {
+        //don't show menu if extra command line args provided
         mainMenuChoice = MAIN_MENU_LENGTH;
-    } else { //show  menu to user and get their choice
+    } else {
+        //standard mode: no cities provided as command line arguments
+        //show  menu to user and get their choice
         mainMenuChoice = getMainMenuChoice();
     }
 	
@@ -193,15 +194,20 @@ int main(int argc, char *argv[]) {
 
                                     city *tmpAdd = NULL;
                                     tmpAdd = getCityByNum(unusedCities, cityToAdd);
-                                    userList = insertFront(userList, tmpAdd);
+                                    
+                                    city *addThis = NULL;
+                                    addThis = makeCityNode(tmpAdd->data);
+                                    
+                                    userList = insertTail(userList, addThis);
                                     printf("\n(+) %s, %s has been added to your itinerary.\n\n", tmpAdd->data->name, tmpAdd->data->country);
                                     
                                     printItinerary(userList);
                                     tmpAdd = NULL;
+                                    addThis = NULL;
                                     cityToAdd = 0;
                                     
                                 } else { //if all cities in master list have been added
-                                    printf("\n>>> ERROR: There are no more cities to add.\n\n");
+                                    printf("\n>>> Sorry, there are no more cities to add.\n\n");
                                 }
                                 
                                 unusedCities = NULL;

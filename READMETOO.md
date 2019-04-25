@@ -371,6 +371,12 @@ Selecting `option 8 or 9` will allow you to **add** or **delete** nodes from you
 
 When you **add** a node via `option 8`, the program will only show cities that are not already in your linked list *(all cities in the master data set that are not already in your custom linked list*).
 
+If you've added all cities in the master list and select `option 8`, you will receive this error message:
+
+```
+>>> Sorry, there are no more cities to add.
+```
+
 If you **delete** *all* nodes from your list via `option 9` or delete your entire list with `option 11`, the program will return you to the main menu:
 
 ```
@@ -387,7 +393,7 @@ void printItineraryToFile(city *C, FILE *ofp);
 The data printed by the function includes:
 
 * Your current linked list
-* Stats on all cities in list
+* Stats on all cities in your list
 
 Example output file:
 

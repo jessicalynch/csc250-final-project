@@ -7,6 +7,7 @@ city *makeCity(char *name, double lat, double lon, char *country, unsigned long 
 city_stats *makeCityStats(char *name, double lat, double lon, char *country, unsigned long pop);
 city *makeCityNode(city_stats *stats);
 city *insertFront(city *head, city *new);
+city *insertTail(city *head, city *new);
 city *makeListFromFile(FILE *ifp, city *list);
 city *makeUserCityList(city *list);
 void sortListByPopulation(city *list, int ascOrDesc);

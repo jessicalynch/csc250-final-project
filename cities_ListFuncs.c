@@ -8,25 +8,24 @@
 #include "cities_PrintFuncs.h"
 
 
+//creates a city_stats struct
 city_stats *makeCityStats(char *name, double lat, double lon, char *country, unsigned long pop, int air) {
     
     city_stats *stats = NULL;
     stats = malloc(sizeof(city_stats));
-    
     
     stats->name = name;
     stats->lat = lat;
     stats->lon = lon;
     stats->country = country;
     stats->pop = pop;
-	stats->air = air;    
+    stats->air = air;
     
     return stats;
     
 }
 
-
-
+//creates a city struct (node used for linked lists)
 city *makeCityNode(city_stats *stats) {
     
     city *new = NULL;
@@ -42,11 +41,31 @@ city *makeCityNode(city_stats *stats) {
     
 }
 
+//adds node to front of linked list
 city *insertFront(city *head, city *new) {
-    
     new->next = head;
     return new;
+}
+
+//adds node to front of linked list
+city *insertTail(city *head, city *new) {
     
+    city *tmp = NULL;
+    tmp = head;
+    
+    if (head == NULL) {
+        head = new;
+    } else if (head != NULL && head->next == NULL) {
+        head->next = new;
+    } else {
+        while (tmp->next != NULL) {
+            tmp = tmp->next;
+        }
+        tmp->next = new;
+        
+    }
+    return head;
+   
 }
 
 
@@ -430,8 +449,7 @@ city *deleteCityNode(city *list, char *name) {
 
 
 city *makeUserCityList(city *list) {
-    
-    
+
     
     printf("\nWhich cities would you like to visit?\n");
     
@@ -466,8 +484,8 @@ city *makeUserCityList(city *list) {
             
             if(!inListCheck){
                 tmp2 = makeCityNode(tmp->data);
-                wishlist = insertFront(wishlist, tmp2);
-                printf("(+) %s, %s has been added to your itinerary\n\n", wishlist->data->name, wishlist->data->country);
+                wishlist = insertTail(wishlist, tmp2);
+                printf("(+) %s, %s has been added to your itinerary\n\n", tmp2->data->name, tmp2->data->country);
             } else {
                 char str2[4];
                 char deleteFromItin;
