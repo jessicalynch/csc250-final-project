@@ -14,7 +14,7 @@
 int main(int argc, char *argv[]) {
 
 
-	if (argc < 2) { //print error if two filenames are not provided
+	if (argc < 2 || argc > 4) { //print error if two filenames are not provided
         printf("%s", "Syntax error: <exec> <filename.txt> [city_name] [city_name]\n");
 		exit(1);
     }
@@ -233,7 +233,7 @@ int main(int argc, char *argv[]) {
                                 tmpDel = NULL;
                                 itinLength = getListLength(userList); //updte itinerary length
                                 if (itinLength < 1) {
-                                    printf("%s", ">>> Your itnerary is empty.\n\nReturning to main menu...\n");
+                                    printf("%s", ">>> Your itinerary is empty.\n\nReturning to main menu...\n");
                                     returnToMain = 1;
                                         
                                            
@@ -260,8 +260,21 @@ int main(int argc, char *argv[]) {
                                 }
                                
                                 break;
-                                
-                               
+                            case 11: 
+                                printf("%s", ">>> Your itinerary is empty.\n\nReturning to main menu...\n");
+                                returnToMain = 1;
+								//delete entire itinerary
+								city *tmpList = userList;
+								city *tmpNode = NULL;
+
+								while (tmpList != NULL) {
+									tmpNode = tmpList;
+									tmpList = tmpList->next;
+									free(tmpNode);
+								}
+								userList = NULL;
+                              	break;
+
                         } //end itinerary choices switch
                         if (returnToMain == 1) {
                             itinChoice = 1;

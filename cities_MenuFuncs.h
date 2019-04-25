@@ -2,7 +2,7 @@
 #define CITIES_MENUFUNCS_H
 
 #define MAIN_MENU_LENGTH 4
-#define ITIN_MENU_LENGTH 10
+#define ITIN_MENU_LENGTH 11
 
 
 int getMainMenuChoice();

@@ -60,7 +60,8 @@ int getItinMenuChoice() {
     printf("%s", "7. Display cities by air quality (Worst to Best)\n");
     printf("%s", "8. Add city to itinerary\n");
     printf("%s", "9. Delete city from itinerary\n");
-    printf("%s", "10. Save current itinerary to file\n\n");
+    printf("%s", "10. Save current itinerary to file\n");
+    printf("%s", "11. Delete entire itinerary\n\n");
     
     printf("%s", "What would you like to do?  ");
     while (!validChoice) {

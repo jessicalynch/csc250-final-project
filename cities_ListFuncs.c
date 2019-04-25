@@ -117,9 +117,28 @@ city *makeListFromFile(FILE *ifp, city *list) { //build a linked list with data 
 city *getCityByName(city *list, char *name) {
     city *tmp = NULL;
     tmp = list;
-    
+   
+	int i = 0;
+	
+	//convert input node's city name to lowercase for comparison
+	int nameLen = strlen(name);
+	char inputName[nameLen+1];
+	strcpy(inputName, name);
+	for (i = 0; i < nameLen; ++i) {
+		inputName[i] = tolower(inputName[i]);
+	}
+
     while (tmp != NULL) {
-        if (strcmp(tmp->data->name, name) == 0){
+		
+		//convert tmp node's city name to lowercase for comparison
+		int tmpLen = strlen(tmp->data->name);
+		char tmpName[tmpLen+1];
+		strcpy(tmpName, tmp->data->name);
+		for (i = 0; i < tmpLen; ++i) {
+			tmpName[i] = tolower(tmpName[i]);
+		}
+
+        if (strcmp(tmpName, inputName) == 0){
             break;
         }
         tmp = tmp->next;
@@ -181,26 +200,23 @@ void sortListByPopulation(city *list, int ascOrDesc) {
         
         for (j = i->next; j != NULL; j = j->next) {
             
-            if (ascOrDesc > 0) {
-                //sort highest to lowest
-                if ( i->data->pop < j->data->pop ) {
+            if (ascOrDesc > 0) { //sort highest to lowest
+                
+				if ( i->data->pop < j->data->pop ) {
                     tmp_data = i->data;
                     i->data = j->data;
-                    j->data = tmp_data;
-                    
+                    j->data = tmp_data;    
                 }
-   
-   			} else {
-                //sort lowest to highest
-                if ( i->data->pop > j->data->pop ) {
+  
+   			} else { //sort lowest to highest
+                
+				if ( i->data->pop > j->data->pop ) {
                     tmp_data = i->data;
                     i->data = j->data;
-                    j->data = tmp_data;
-                    
+                    j->data = tmp_data;         
                 }
             }
            
-
         }
     }
 }
@@ -288,7 +304,6 @@ city *findBestAirCity(city *head) {
 			minAirVal = i->data->air;
 			minNode = i;
 		}
-
 	}
 
 	return minNode;
@@ -343,8 +358,6 @@ void selSortAirQuality_WorstToBest(city *list) {
 		max_node->data = stats_temp;
 
 	}
-
-
 }
 
 
@@ -383,7 +396,6 @@ int inList(city *list, char *name) {
 
 
 city *deleteCityNode(city *list, char *name) {
-    
     
     city *tmp = list;
     city *buf = NULL;
