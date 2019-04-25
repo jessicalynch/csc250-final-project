@@ -98,13 +98,14 @@ int main(int argc, char *argv[]) {
             case 2:
                 //make or edit itinerary
                 if (userList == NULL) {
+                    //userList is empty -- make new list from user input
                     sortListByName(list, 1);
                     printCityList_3col(list);
                     userList = makeUserCityList(list);
                 }
 
                 if (userList != NULL) {
-
+                    //userList is not empty -- show itinerary menu
                     printItinerary(userList);
                     
                     //initialize itinerary variables
@@ -185,7 +186,7 @@ int main(int argc, char *argv[]) {
                                 
                                 if (unusedCitiesLength != 0) { //if cities exist in master list that are not already in user list
                                     sortListByName(unusedCities, 1);
-									printCityList(unusedCities);
+                                    printCityList(unusedCities);
                                     printf("%s", "\nWhich city would you like to add?\n");
                                     
                                     while (cityToAdd < 1 || cityToAdd > unusedCitiesLength) {
@@ -226,7 +227,6 @@ int main(int argc, char *argv[]) {
                                     fgets(tmpToDelStr, 10, stdin);
                                     sscanf(tmpToDelStr, "%d", &cityToDelete);
                                 }
-
 
                                 city *tmpDel = NULL;
                                 tmpDel = getCityByNum(userList, cityToDelete);
@@ -286,8 +286,7 @@ int main(int argc, char *argv[]) {
                         }
 
                     } //end while for itinerary menu
-
-                }
+                } //end if (itinerary optoins if userList is not empty)
                 break;
             
             case 3:
@@ -320,8 +319,8 @@ int main(int argc, char *argv[]) {
         } //end main menu switch
         mainMenuChoice = getMainMenuChoice(); //show menu after their task is complete
     } //end main menu while
-
-	printf("%s", "Exiting program...\n");
+    
+    printf("%s", "Exiting program...\n");
     
     return 0;
     
