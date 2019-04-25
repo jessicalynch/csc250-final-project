@@ -116,9 +116,11 @@ int main(int argc, char *argv[]) {
                     int unusedCitiesLength = 0;
                     city *temp = NULL;
                     city *temp2 = NULL;
+                    
                     int cityToAdd = 0;
-
                     int cityToDelete = -1;
+                    
+                    char tmpToDelStr[10]; //temp array to store city node to delete
                     char tmpStrCityToAdd[10]; //temp array to store city node to add
 
                     int itinChoice = getItinMenuChoice(); //show  menu to user and get their choice
@@ -153,67 +155,61 @@ int main(int argc, char *argv[]) {
                                 sortListByPopulation(userList, -1);
                                 printListByPopulation(userList, itinLength);
                                 break;
-							case 6:
-								//display by air quality: low to high (best to worst)
-								itinLength = getListLength(userList);
-								//city *lowest = findBestAirCity(userList);
-								//printf("The city with the best air is: %s\n", lowest->data->name);
-								selSortAirQuality_BestToWorst(userList);
-								printListByAirQuality(userList, itinLength);
-								break;
+                            case 6:
+                                //display by air quality: low to high (best to worst)
+                                itinLength = getListLength(userList);
+                                selSortAirQuality_BestToWorst(userList);
+                                printListByAirQuality(userList, itinLength);
+                                break;
                             case 7:
-								//display by air quality: high to low (worst to best)
-								itinLength = getListLength(userList);
-								selSortAirQuality_WorstToBest(userList);
-								printListByAirQuality(userList, itinLength);
-								break;
-							case 8:
-								//add city to itin
-								
-								//make list of cities not already in itinerary
-							
-								for (temp = list; temp != NULL; temp = temp->next) {
-									if ( !inList(userList, temp->data->name )) {
-										temp2 = makeCityNode(temp->data);
-										unusedCities = insertFront(unusedCities, temp2);
-									}
-								}
-								unusedCitiesLength = getListLength(unusedCities);
-							
-								if (unusedCitiesLength != 0) {
-
-									sortListByName(unusedCities, 1);
+                                //display by air quality: high to low (worst to best)
+                                itinLength = getListLength(userList);
+                                selSortAirQuality_WorstToBest(userList);
+                                printListByAirQuality(userList, itinLength);
+                                break;
+                            case 8:
+                                //add city to itin
+                                for (temp = list; temp != NULL; temp = temp->next) {
+                                    //make list of cities not already in itinerary
+                                    if ( !inList(userList, temp->data->name )) {
+                                        temp2 = makeCityNode(temp->data);
+                                        unusedCities = insertFront(unusedCities, temp2);
+                                    }
+                                }
+                                unusedCitiesLength = getListLength(unusedCities);
+                                
+                                if (unusedCitiesLength != 0) {
+                                    sortListByName(unusedCities, 1);
 									printCityList(unusedCities);
+                                    printf("%s", "\nWhich city would you like to add?\n");
+                                    
+                                    while (cityToAdd < 1 || cityToAdd > unusedCitiesLength) {
+                                        printf("Enter a number from 1 to %d: ", unusedCitiesLength);
+                                        fgets(tmpStrCityToAdd, 10, stdin);
+                                        sscanf(tmpStrCityToAdd, "%d", &cityToAdd);
+                                    }
 
-                                	printf("%s", "\nWhich city would you like to add?\n");
-									
-									while (cityToAdd < 1 || cityToAdd > unusedCitiesLength) {
-										printf("Enter a number from 1 to %d: ", unusedCitiesLength);
-										fgets(tmpStrCityToAdd, 10, stdin);
-										sscanf(tmpStrCityToAdd, "%d", &cityToAdd);
-									}
-
-									city *tmpAdd = NULL;
-									tmpAdd = getCityByNum(unusedCities, cityToAdd);
-									userList = insertFront(userList, tmpAdd);
-                                	printf("\n(+) %s, %s has been added to your itinerary.\n\n", tmpAdd->data->name, tmpAdd->data->country);
-                                	printItinerary(userList);
-									tmpAdd = NULL;
-									cityToAdd = 0;
-								
-								} else {
-									//if all cities have been added
-									printf("\n>>> ERROR: There are no more cities to add.\n\n");
-								}
-
-								unusedCities = NULL;
-								break;
+                                    city *tmpAdd = NULL;
+                                    tmpAdd = getCityByNum(unusedCities, cityToAdd);
+                                    userList = insertFront(userList, tmpAdd);
+                                    printf("\n(+) %s, %s has been added to your itinerary.\n\n", tmpAdd->data->name, tmpAdd->data->country);
+                                    
+                                    printItinerary(userList);
+                                    tmpAdd = NULL;
+                                    cityToAdd = 0;
+                                    
+                                } else {
+                                    //if all cities have been added
+                                    printf("\n>>> ERROR: There are no more cities to add.\n\n");
+                                }
+                                
+                                unusedCities = NULL;
+                                break;
+                                
 							case 9:
-								//delete city from itin
+                                //delete city from itin
                                 printItinerary(userList);
-								itinLength = getListLength(userList);
-
-                    			char tmpToDelStr[10]; //temp array to store city node to delete
+                                itinLength = getListLength(userList);
                                 
 								printf("%s", "Which city would you like to delete?\n");
 								while (cityToDelete < 1 || cityToDelete > itinLength) {
