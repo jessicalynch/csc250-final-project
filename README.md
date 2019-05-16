@@ -3,7 +3,7 @@
 **cities.c**
 
 ## Description
-My program does various operations with an included data set of cities around the world, with an emphasis on the following items:
+The program does various operations with an included data set of cities around the world with an emphasis on the following items:
 
 - [ ] Header Files (Multiple C Files)
 - [ ] Command Line Arguments
@@ -129,7 +129,7 @@ Avg. Air Pollution (PM2.5): 26
 ```
 
 
-If a `two city names` are provided, the program display the distance between the two cities.
+If `two city names` are provided, the program display the distance between the two cities.
 
 **Example command:**
 ```
