@@ -1,6 +1,6 @@
-# cities.c
+# CSC-250 Final Project
 
-**CSC-250 Final Project for Jessica Lynch**
+**cities.c**
 
 ## Description
 My program does various operations with an included data set of cities around the world, with an emphasis on the following items:
