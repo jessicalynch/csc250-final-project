@@ -1,4 +1,4 @@
-# CSC-250 Final Project
+# CSC250 Final Proejct: Trip planner with city data
 
 **cities.c**
 
