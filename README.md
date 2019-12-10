@@ -1,7 +1,5 @@
 # CSC250 Final Proejct: Trip planner with city data
 
-**cities.c**
-
 ## Description
 The program does various operations with an included data set of cities around the world with an emphasis on the following items:
 
